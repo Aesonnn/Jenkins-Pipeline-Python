@@ -1,31 +1,15 @@
 pipeline {
-    agent any
+    agent { 
+        node {
+            label 'docker-agent-python'
+            }
+      }
     stages {
-        stage('Install Python Environment Tools') {
-            steps {
-                echo "Installing python3-venv.."
-                sh '''
-                apt-get update
-                apt-get install -y python3.11-venv  # adjust python version as necessary
-                '''
-            }
-        }
-        stage('Setup Python Environment') {
-            steps {
-                echo "Setting up Python Virtual Environment.."
-                sh '''
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install -r requirements.txt
-                '''
-            }
-        }
         stage('Build') {
             steps {
                 echo "Building.."
                 sh '''
-                . venv/bin/activate
-                python3 app.py
+                pip install -r requirements.txt
                 '''
             }
         }
@@ -33,7 +17,6 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                . venv/bin/activate
                 python3 app.py
                 '''
             }
