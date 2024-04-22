@@ -5,8 +5,8 @@ pipeline {
             steps {
                 echo "Installing python3-venv.."
                 sh '''
-                sudo apt-get update
-                sudo apt-get install -y python3.11-venv  # adjust python version as necessary
+                apt-get update
+                apt-get install -y python3.11-venv  # adjust python version as necessary
                 '''
             }
         }
